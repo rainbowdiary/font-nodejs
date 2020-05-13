@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>ajax</title>
+</head>
+
+<body>
+  <button id="btn">按钮</button>
+  <input type="text">
+  <script type="text/javascript">
+    /*
+      总结ajax:
+        1. 一个在客户端发送异步请求的技术
+        2. 特点：
+          无刷新更新页面
+        3. 工作原理
+          浏览器有一个ajax引擎负责发送请求
+     */
+    document.getElementById('btn').onclick = function () {
+      // 发送ajax请求
+      /*
+        1. 创建xhr实例对象
+        2. 绑定事件监听：监听响应结果
+        3. 设置请求信息
+          请求方式
+          请求地址
+          请求参数
+          请求头 content-type
+        4. 发送请求
+  
+        注意：发送ajax请求的页面必须通过自己服务器访问，不能通过webstorm去访问。
+              一旦通过webstorm访问，就会产生跨域问题。
+       */
+      // 1. 创建xhr实例对象
+      const xhr = new XMLHttpRequest();
+      // 2. 绑定事件监听：监听响应结果
+      xhr.onreadystatechange = function () {
+        /*
+          当readyState的值发生变化时，触发的事件
+            0: 代表xhr刚刚创建。readyState的初始值就是0
+            1: 代表open方法调用了，但send方法还没有调用。（还没发送请求，还来得及设置请求头）
+            2：代表send方法调用了（已经发送请求），并接受到部分响应结果（接收到了响应首部：响应头和响应状态码）
+            3：代表接受了部分/全部响应体数据（如果数据较大，只接受了一部分。如果较小，就全部接受了）
+            4：代表接受完全部响应体数据
+  
+           xhr.status 响应状态码
+         */
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          // 响应成功，得到响应体数据
+          console.log(xhr.responseText);
+        }
+      };
+      // 3. 设置请求信息
+      /*
+        GET请求默认会被浏览器缓存起来：
+          chrome/firefox默认走类似协商缓存（会访问服务器，由服务器决定是否走缓存）。所以如果服务器响应变了，就不走缓存返回最新的响应结果
+          ie默认走类似强制缓存（不会访问服务器，直接读取浏览器本地缓存）。
+            问题：如果服务器响应变了，ie接受不到最新的内容
+       */
+      xhr.open('GET', 'http://localhost:3000?username=jack&age=18&date=' + Date.now());
+      // xhr.open('POST', 'http://localhost:3000?aa=bb');
+      // xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+      xhr.setRequestHeader('content-type', 'application/json');
+      // 4. 发送请求
+      // xhr.send('username=jack&age=18'); // urlencoded编码
+      xhr.send(JSON.stringify({ username: 'jack', age: 18 })); // json
+
+      console.log('代码执行完了~');
+    }
+
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "staticserver",
+  "version": "1.1.0",
+  "description": "静态资源服务器",
+  "main": "server.js",
+  "bin": {
+    "damu": "./.bin/www"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "etag": "^1.8.1",
+    "jade": "^1.11.0",
+    "yargs": "^15.1.0"
+  }
+}

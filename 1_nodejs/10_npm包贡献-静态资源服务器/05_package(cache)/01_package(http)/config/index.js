@@ -1,0 +1,13 @@
+module.exports={
+    host:"127.0.0.1",
+    port:8080,
+    rootPath:process.cwd(),
+    compress:/js|txt|md|css|html/,
+    cache:{
+        "max-age":15,
+        "expires":true,
+        "cache-control":true,
+        "last-modified":true,
+        "etag":true
+    }
+}
